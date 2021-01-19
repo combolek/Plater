@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: jurplel/install-qt-action@v2
-      with:
-        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+    # - uses: jurplel/install-qt-action@v2
+    #   with:
+    #     mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+    - name: Install dependencies
+      run: apt-get install -y qtbase5-dev libglu1-mesa-dev
 
     - uses: actions/checkout@v2
 
