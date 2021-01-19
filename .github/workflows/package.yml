@@ -45,6 +45,7 @@ jobs:
       with:
          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
          arch: win64_msvc2019_64
+         modules: qtwinextras
 
     - uses: actions/checkout@v2
 
