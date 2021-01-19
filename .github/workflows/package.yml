@@ -12,6 +12,9 @@ jobs:
 
     steps:
     - uses: jurplel/install-qt-action@v2
+      with:
+        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+
     - uses: actions/checkout@v2
 
     - name: Create Build Environment
