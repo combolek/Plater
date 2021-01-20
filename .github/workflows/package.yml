@@ -37,32 +37,37 @@ jobs:
       shell: bash
       run: cmake --build . --config $BUILD_TYPE --target package
 
-  Windows:
-    runs-on: windows-latest
-
-    steps:
-    - uses: jurplel/install-qt-action@v2
+    - uses: actions/upload-artifact@v2
       with:
-         mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
-         arch: win64_msvc2019_64
-         modules: all
+        name: Linux binaries
+        path: ${{github.workspace}}/build/*.7z
 
-    - uses: actions/checkout@v2
+  # Windows:
+  #   runs-on: windows-latest
 
-    - name: Create Build Environment
-      run: cmake -E make_directory ${{github.workspace}}/build
+  #   steps:
+  #   - uses: jurplel/install-qt-action@v2
+  #     with:
+  #        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+  #        arch: win64_msvc2019_64
+  #        modules: all
 
-    - name: Configure CMake
-      shell: bash
-      working-directory: ${{github.workspace}}/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE $GITHUB_WORKSPACE
+  #   - uses: actions/checkout@v2
 
-    - name: Build
-      working-directory: ${{github.workspace}}/build
-      shell: bash
-      run: cmake --build . --config $BUILD_TYPE
+  #   - name: Create Build Environment
+  #     run: cmake -E make_directory ${{github.workspace}}/build
 
-    - name: Package
-      working-directory: ${{github.workspace}}/build
-      shell: bash
-      run: cmake --build . --config $BUILD_TYPE --target package
+  #   - name: Configure CMake
+  #     shell: bash
+  #     working-directory: ${{github.workspace}}/build
+  #     run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE $GITHUB_WORKSPACE
+
+  #   - name: Build
+  #     working-directory: ${{github.workspace}}/build
+  #     shell: bash
+  #     run: cmake --build . --config $BUILD_TYPE
+
+  #   - name: Package
+  #     working-directory: ${{github.workspace}}/build
+  #     shell: bash
+  #     run: cmake --build . --config $BUILD_TYPE --target package
