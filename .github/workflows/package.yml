@@ -27,7 +27,7 @@ jobs:
     - name: Configure CMake
       shell: bash
       working-directory: ${{github.workspace}}/build
-      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=installed $GITHUB_WORKSPACE
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=Plater-Linux-${{github.sha}} $GITHUB_WORKSPACE
 
     - name: Build
       working-directory: ${{github.workspace}}/build
@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Plater-Linux-${{github.sha}}
-        path: ${{github.workspace}}/build/installed
+        path: ${{github.workspace}}/build/Plater-Linux-${{github.sha}}
 
   Windows:
     runs-on: windows-latest
@@ -73,7 +73,7 @@ jobs:
     - name: Configure CMake
       shell: bash
       working-directory: ${{github.workspace}}/build
-      run: cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=installed $GITHUB_WORKSPACE
+      run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=Plater-Windows-${{github.sha}} $GITHUB_WORKSPACE
 
     - name: Build
       working-directory: ${{github.workspace}}/build
@@ -89,4 +89,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Plater-Windows-${{github.sha}}
-        path: ${{github.workspace}}/build/installed
+        path: ${{github.workspace}}/build/Plater-Windows-${{github.sha}}
