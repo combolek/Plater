@@ -32,15 +32,15 @@ jobs:
       shell: bash
       run: cmake --build . --config $BUILD_TYPE
 
-    - name: Package
+    - name: Install
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: cmake --build . --config $BUILD_TYPE --target package
+      run: cmake --build . --config $BUILD_TYPE --target install
 
     - uses: actions/upload-artifact@v2
       with:
-        name: Linux binaries
-        path: ${{github.workspace}}/build/*.7z
+        name: Plater-Linux-${{github.sha}}
+        path: ${{github.workspace}}/build/installed
 
   # Windows:
   #   runs-on: windows-latest
