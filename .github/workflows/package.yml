@@ -39,7 +39,8 @@ jobs:
       shell: bash
       run: cmake --build . --config $BUILD_TYPE --target install
 
-    - uses: actions/upload-artifact@v2
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
       with:
         name: Plater-Linux-${{github.sha}}
         path: ${{github.workspace}}/build/installed
@@ -83,7 +84,8 @@ jobs:
       shell: bash
       run: cmake --build . --config $BUILD_TYPE --target install
 
-    - uses: actions/upload-artifact@v2
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
       with:
         name: Plater-Linux-${{github.sha}}
         path: ${{github.workspace}}/build/installed
