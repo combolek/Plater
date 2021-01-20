@@ -59,6 +59,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
+         cached: ${{ steps.cache-qt.outputs.cache-hit }}
          mirror: 'http://ftp.jaist.ac.jp/pub/qtproject/'
          # mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
          arch: win64_msvc2019_64
