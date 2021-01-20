@@ -12,13 +12,14 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-16.04, ubuntu-18.04]
+        os: [ubuntu-16.04]
 
     steps:
     - name: Install dependencies
       run: sudo apt-get install -y qtbase5-dev libglu1-mesa-dev
 
-    - uses: actions/checkout@v2
+    - name: Checkout sources
+      uses: actions/checkout@v2
 
     - name: Create Build Environment
       run: cmake -E make_directory ${{github.workspace}}/build
@@ -43,32 +44,46 @@ jobs:
         name: Plater-Linux-${{github.sha}}
         path: ${{github.workspace}}/build/installed
 
-  # Windows:
-  #   runs-on: windows-latest
+  Windows:
+    runs-on: windows-latest
 
-  #   steps:
-  #   - uses: jurplel/install-qt-action@v2
-  #     with:
-  #        mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
-  #        arch: win64_msvc2019_64
-  #        modules: all
+    steps:
+    - name: Cache Qt
+      id: cache-qt
+      uses: actions/cache@v1
+      with:
+        path: ../Qt
+        key: ${{ runner.os }}-QtCache
 
-  #   - uses: actions/checkout@v2
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+         mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+         arch: win64_msvc2019_64
+         modules: all
 
-  #   - name: Create Build Environment
-  #     run: cmake -E make_directory ${{github.workspace}}/build
+    - name: Checkout sources
+      uses: actions/checkout@v2
 
-  #   - name: Configure CMake
-  #     shell: bash
-  #     working-directory: ${{github.workspace}}/build
-  #     run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE $GITHUB_WORKSPACE
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
 
-  #   - name: Build
-  #     working-directory: ${{github.workspace}}/build
-  #     shell: bash
-  #     run: cmake --build . --config $BUILD_TYPE
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      run: cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=installed ${{github.workspace}}
 
-  #   - name: Package
-  #     working-directory: ${{github.workspace}}/build
-  #     shell: bash
-  #     run: cmake --build . --config $BUILD_TYPE --target package
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Install
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --config $BUILD_TYPE --target install
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Plater-Linux-${{github.sha}}
+        path: ${{github.workspace}}/build/installed
