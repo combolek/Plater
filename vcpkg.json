@@ -1,0 +1,7 @@
+{
+    "name": "plater",
+    "version-string": "1.1.0",
+    "dependencies": [
+        "qt5-base"
+    ]
+}
