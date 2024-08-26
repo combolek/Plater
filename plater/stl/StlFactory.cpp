@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <cstdio>
+#include <cstdint>
 #include <sstream>
 #define _USE_MATH_DEFINES
 #include <math.h>
