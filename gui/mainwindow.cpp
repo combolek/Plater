@@ -240,7 +240,7 @@ void MainWindow::on_runButton_clicked()
 
 void MainWindow::on_partBrowse_clicked()
 {
-    stls = QFileDialog::getOpenFileNames(this, "Select a part", workingDirectory, "*.stl");
+    stls = QFileDialog::getOpenFileNames(this, "Select a part", workingDirectory, "*.stl *.STL");
     wizardNext();
 }
 
